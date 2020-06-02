@@ -49,7 +49,17 @@ npm run dev
             password: '111111',
         }
 ```
-    使用：在app/model中创建模型以及 associate（数据库表之间的关系 1对多 多对多···） 在需要的时候异步更新数据库（强制跟新表）
+
+    使用：在app/model中创建模型以及 associate（数据库表之间的关系 1对多 多对多···）
+        * 1对多 在多的那个表新建外键  源模型.关系（目标模型）   belongsTo在源模型上 hasMany在目标上   
+            Cannot add foreign key constraint -> foreignKey: 'roleId', constraints: false
+            error at post:/api/role ,the type of request parameter does not exit -> contract中参数没定义
+``` js
+    
+```
+        * 多对多 需要建立一个中间表 through 对应的是中间表   
+
+        在需要的时候异步更新数据库（强制跟新表）
         service中进行数据的操作
 
         获取三种不同方式的参数：

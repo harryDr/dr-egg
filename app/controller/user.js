@@ -62,6 +62,21 @@ class UserController extends Controller {
 			message: 'ok'
 		}
 	}
+
+	/**
+	 * @Router post /api/login
+	 * @Request body loginForm 登录
+	 * @Response 200 baseResponse OK
+	 */
+	async login(){
+		const { ctx, service } = this
+		console.log(ctx.request.body)
+		let res = await service.user.login(ctx.request.body)
+		ctx.body = {
+			result: res,
+			message: 'ok'
+		}
+	}
 }
 
 module.exports = UserController;
