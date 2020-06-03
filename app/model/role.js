@@ -13,7 +13,16 @@ module.exports = app => {
         },
         role: {
             type: STRING(30),
+            allowNull: false,
+            defaultValue: ''
         },
+    },{
+        timestamps: false,
+        underscored: true,
+        // paranoid: true,
+        freezeTableName: true,
+        charset: 'utf8',
+        collate: 'utf8_general_ci'
     });
 
     //数据库之间的关系
@@ -22,7 +31,7 @@ module.exports = app => {
     }
 
     //强制重新更新数据库
-    Role.sync({force: true});   
+    // Role.sync({force: true});   
 
     return Role;
 };

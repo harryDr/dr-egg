@@ -9,16 +9,29 @@ module.exports = app => {
         id: {
             type: INTEGER,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
+            allowNull: false,
         },
         roleId: {
             type: INTEGER,
-            
+            allowNull: false,
+            defaultValue: 0
         },
         authorityId: {
             type: INTEGER,
-        },
-    });
+            allowNull: false,
+            defaultValue: 0
+        }
+    },
+        {
+            timestamps: false,
+            underscored: true,
+            // paranoid: true,
+            freezeTableName: true,
+            charset: 'utf8',
+            collate: 'utf8_general_ci'
+        }
+    );
 
     //数据库之间的关系
     RoleAuthority.associate = function () {
@@ -26,7 +39,7 @@ module.exports = app => {
     }
 
     //强制重新更新数据库
-    RoleAuthority.sync({force: true});   
+    // RoleAuthority.sync({ force: true });
 
     return RoleAuthority;
 };
