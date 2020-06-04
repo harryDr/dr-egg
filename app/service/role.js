@@ -33,6 +33,7 @@ class RoleService extends Service {
         return SUCCESS
     }
     async updateRole(id, body) {
+        //一对多 多个authority
         let { ctx } = this;
         let role = await ctx.app.model.Role.findOne({ where: { id: id } })
         if (!role) {
@@ -44,7 +45,6 @@ class RoleService extends Service {
                 msg: 'not found authority'
             })
         }
-        console.log(body)
         // return '1231231'
         await role.setAuthorities(authority)
         return SUCCESS
