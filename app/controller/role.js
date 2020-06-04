@@ -28,26 +28,18 @@ class RoleController extends Controller {
 	 */
 	async createRole() {
 		const { ctx, service } = this
-		let res = await service.role.createRole(ctx.request.body)
-		ctx.body = {
-			result: res,
-			message: 'ok'
-		}
+		ctx.body = await service.role.createRole(ctx.request.body)
 	}
 
 	/**
 	 * @Router put /api/role
 	 * @Request query string *roleId eg:1 roleId
-	 * @Request body createRole 
+	 * @Request body createRole 修改role
 	 * @Response 200 baseResponse OK
 	 */
 	async updateRole() {
 		const { ctx, service } = this
-		let res = await service.role.updateRole(ctx.query.roleId,ctx.request.body)
-		ctx.body = {
-			result: res,
-			message: 'ok'
-		}
+		ctx.body = await service.role.updateRole(ctx.query.roleId,ctx.request.body)
 	}
 
 	/**

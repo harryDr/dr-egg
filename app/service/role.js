@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('egg').Service;
+const { ERROR, SUCCESS } = require('../util/util')
 
 class RoleService extends Service {
     async getRole(id) {
@@ -15,9 +16,21 @@ class RoleService extends Service {
     async createRole(body) {
         let { ctx } = this;
         // return await ctx.app.model.Role.create(body)
-        let role = await ctx.app.model.Role.create(body)
-        let authority = await ctx.app.model.Authority.findOne({ where: { id: 1 } })
-        return await role.addAuthority(authority)
+        let role = null
+        try {
+            role = await ctx.app.model.Role.create(body)
+        } catch (error) {
+            ctx.status = 500;
+            throw (error);
+        }
+        let authority = await ctx.app.model.Authority.findOne({ where: { id: body.authorityIDs } })
+        if (!authority) {
+            return Object.assign(ERROR, {
+                msg: 'not found'
+            })
+        }
+        await role.addAuthority(authority)
+        return SUCCESS
     }
     async updateRole(id, body) {
         let { ctx } = this;
@@ -25,7 +38,16 @@ class RoleService extends Service {
         if (!role) {
             this.ctx.throw(404, 'role not found');
         }
-        return role.update(body)
+        let authority = await ctx.app.model.Authority.findOne({ where: { id: body.authorityIDs } })
+        if (!authority) {
+            return Object.assign(ERROR, {
+                msg: 'not found authority'
+            })
+        }
+        console.log(body)
+        // return '1231231'
+        await role.setAuthorities(authority)
+        return SUCCESS
     }
     async deleteRole(id) {
         let { ctx } = this;

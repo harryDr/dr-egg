@@ -22,4 +22,11 @@ module.exports = app => {
   router.put('/api/role', controller.role.updateRole);
   router.delete('/api/role', controller.role.deleteRole);
 
+  //authority
+  router.get('/api/authority', controller.authority.getAuthority);
+  router.post('/api/authority', controller.authority.createAuthority);
+  router.put('/api/authority', controller.authority.updateAuthority);
+  router.delete('/api/authority', controller.authority.deleteAuthority);
+
+
 };

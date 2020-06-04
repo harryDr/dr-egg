@@ -18,6 +18,11 @@ module.exports = {
   },
   createRole: {
     role: { type: 'string', required: true, example: '管理员' },
+    authorityIDs: { type: "array", required: true, itemType: 'string' }
+  },
+  createAuthority: {
+    auth: { type: 'string', required: true, example: 'add' },
+    des: { type: 'string', required: true, example: '增加' }
   },
   // createShop: {
   //   shopId: { type: 'string', required: true, example: '1' },
