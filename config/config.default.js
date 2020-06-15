@@ -16,7 +16,17 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1588493371806_752';
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = ['jwtDr'];
+  config.jwtDr = {
+    ignore: (ctx) => {
+      if (ctx.request.url.indexOf('swagger') > 0 || ctx.request.url.indexOf('login') > 0) {
+        return true
+      } else {
+        return false
+      }
+    }
+    // ignore: ['/api/login','^\/swagger','/swagger-ui-bundle.js','/swagger-ui-standalone-preset.js','/swagger-ui.css','/swagger-ui.html']
+  }
 
   // add your user config here
   const userConfig = {
@@ -65,6 +75,20 @@ module.exports = appInfo => {
     username: 'root',
     password: '111111',
   };
+
+  config.multipart = {
+    // mode: 'file', //默认为stream模式  还可以为file模式
+    whitelist: [
+      '.png',
+      '.txt',
+      '.jpg',
+    ],
+    // fileSize: '50mb', //文件大小
+  };
+
+  config.jwt = {
+    secret: "123456"
+  }
 
   return {
     ...config,

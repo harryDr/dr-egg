@@ -28,5 +28,8 @@ module.exports = app => {
   router.put('/api/authority', controller.authority.updateAuthority);
   router.delete('/api/authority', controller.authority.deleteAuthority);
 
+  //upload文件图片上传
+  router.post('/api/upload', controller.upload.singleUpload);
+
 
 };

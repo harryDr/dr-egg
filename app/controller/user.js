@@ -55,7 +55,7 @@ class UserController extends Controller {
 	 */
 	async deleteUser() {
 		const { ctx, service } = this
-		console.log(ctx.params,ctx.query)
+		console.log(ctx.params, ctx.query)
 		let res = await service.user.deleteUser(ctx.query.userId)
 		ctx.body = {
 			result: res,
@@ -68,14 +68,10 @@ class UserController extends Controller {
 	 * @Request body loginForm 登录
 	 * @Response 200 baseResponse OK
 	 */
-	async login(){
+	async login() {
 		const { ctx, service } = this
 		console.log(ctx.request.body)
-		let res = await service.user.login(ctx.request.body)
-		ctx.body = {
-			result: res,
-			message: 'ok'
-		}
+		ctx.body = await service.user.login(ctx.request.body)
 	}
 }
 
